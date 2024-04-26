@@ -57,6 +57,8 @@ using (var scope = app.Services.CreateScope())
     app.MapControllers();
 }
 
+var scheme = appSettings.GetValue<int>("Scheme");
+var hostname = appSettings.GetValue<int>("Hostname");
 var port = appSettings.GetValue<int>("Port");
 //builder.Configuration.
-app.Run($"http://localhost:{port}");
+app.Run($"{scheme}://{hostname}:{port}");
