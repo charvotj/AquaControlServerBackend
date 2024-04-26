@@ -4,6 +4,7 @@ using AquaControlServerBackend.Helpers;
 using AquaControlServerBackend.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+var appSettings = builder.Configuration.GetSection("AppSettings");
 
 // add services to DI container
 {
@@ -23,7 +24,7 @@ var builder = WebApplication.CreateBuilder(args);
     services.AddAutoMapper(typeof(Program));
 
     // configure strongly typed settings object
-    services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+    services.Configure<AppSettings>(appSettings);
 
     // configure DI for application services
     services.AddScoped<IJwtUtils, JwtUtils>();
@@ -56,4 +57,6 @@ using (var scope = app.Services.CreateScope())
     app.MapControllers();
 }
 
-app.Run("http://localhost:4000");
+var port = appSettings.GetValue<int>("Port");
+//builder.Configuration.
+app.Run($"http://localhost:{port}");
