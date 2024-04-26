@@ -16,5 +16,6 @@ WORKDIR /app
 COPY --from=build /app .
 
 ENV ASPNETCORE_ENVIRONMENT=Development
+RUN mkdir /app/db
 
 ENTRYPOINT ["dotnet", "AquaControlServerBackend.dll"]
